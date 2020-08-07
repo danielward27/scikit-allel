@@ -37,6 +37,8 @@ class ArrayWrapper(object):
             # don't pass these through because we want to use __array__ to control numpy
             # behaviour
             raise AttributeError
+        if item in {'__getstate__', '__setstate__'}:
+            return object.__getattr__(self, attr)
         return getattr(self.values, item)
 
     def __getitem__(self, item):
